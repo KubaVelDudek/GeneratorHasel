@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 function App() {
   const [znaki, setZnaki] = useState('');
@@ -22,29 +23,29 @@ function App() {
     var iloscWybranych = 0;
     if (litery.current.checked) {
       iloscWybranych += 1;
-      if (haslo.length + iloscWybranych <= znakiNumer) {
+      if (iloscWybranych <= znakiNumer) {
         haslo += tabLitery.charAt(randomInt(tabLitery.length));
       }
     }
     if (cyfry.current.checked) {
       iloscWybranych += 1;
-      if (haslo.length + iloscWybranych <= znakiNumer) {
+      if (iloscWybranych <= znakiNumer) {
         haslo += tabCyfry.charAt(randomInt(tabCyfry.length));
       }
     }
     if (znakiSpecjalne.current.checked) {
       iloscWybranych += 1;
-      if (haslo.length + iloscWybranych <= znakiNumer) {
+      if (iloscWybranych <= znakiNumer) {
         haslo += tabZnaki.charAt(randomInt(tabZnaki.length));
       }
     }
     for (var i = 0; i < znakiNumer - iloscWybranych; i++) {
       haslo += tabMale.charAt(randomInt(tabMale.length));
     }
-    alert(iloscWybranych);
+    alert(haslo);
   }
   return (
-    <>
+    <div id="wrapper">
       <h1>Generator Haseł</h1>
       <label htmlFor="znaki">Ile znaków?</label>
       <input
@@ -52,19 +53,19 @@ function App() {
         name="znaki"
         value={znaki}
         onChange={(e) => setZnaki(e.target.value)}
+        className='form-control'
       ></input>
-      <br></br>
-      <input type="checkbox" name="litery" ref={litery}></input>
+      <input type="checkbox" name="litery" ref={litery} className='form-check-input'></input>
       <label htmlFor="litery">Małe i wielkie litery</label>
       <br></br>
-      <input type="checkbox" name="cyfry" ref={cyfry}></input>
+      <input type="checkbox" name="cyfry" ref={cyfry} className='form-check-input'></input>
       <label htmlFor="cyfry">Cyfry</label>
       <br></br>
-      <input type="checkbox" name="znakiSpecjalne" ref={znakiSpecjalne}></input>
+      <input type="checkbox" name="znakiSpecjalne" ref={znakiSpecjalne} className='form-check-input'></input>
       <label htmlFor="znakiSpecjalne">Znaki specjalne</label>
       <br></br>
-      <button onClick={() => generuj()}>Generuj hasło</button>
-    </>
+      <button onClick={() => generuj()} className='btn btn-primary'>Generuj hasło</button>
+    </div>
   );
 }
 

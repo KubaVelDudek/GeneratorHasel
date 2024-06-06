@@ -4,3 +4,9 @@ label {
 input {
   margin-right: 15px;
 }
+#wrapper {
+}
+body {
+  display: flex;
+  justify-content: center;
+}
