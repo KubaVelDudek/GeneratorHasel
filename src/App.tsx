@@ -9,6 +9,11 @@ function App() {
   const litery = useRef();
   const cyfry = useRef();
   const znakiSpecjalne = useRef();
+  const kolory = useRef();
+  const [wynik, setWynik] = useState('');
+  const [kolorek, setKolorek] = useState('');
+
+  const kolor = [{name: "Czarny", value: "black"}, {name: "Czerwony", value: "red"}, {name: "Zielony", value: "green"}, {name: "Niebieski", value: "blue"}];
 
   function randomInt(max) {
     return Math.floor(Math.random() * max);
@@ -42,7 +47,8 @@ function App() {
     for (var i = 0; i < znakiNumer - iloscWybranych; i++) {
       haslo += tabMale.charAt(randomInt(tabMale.length));
     }
-    alert(haslo);
+    setWynik(haslo);
+    setKolorek(kolor[kolory.current.value].value);
   }
   return (
     <div id="wrapper">
@@ -64,7 +70,16 @@ function App() {
       <input type="checkbox" name="znakiSpecjalne" ref={znakiSpecjalne} className='form-check-input'></input>
       <label htmlFor="znakiSpecjalne">Znaki specjalne</label>
       <br></br>
+      <label htmlFor="kolor">Wybierz kolor</label>
+      <br></br>
+      <select name="kolor" id="kolor" className="form-select" ref={kolory}>
+        {kolor.map(({name}, i) => <option value={i}>{name}</option>)}
+      </select>
+      <br></br>
       <button onClick={() => generuj()} className='btn btn-primary'>Generuj hasło</button>
+      <br></br>
+      <br></br>
+      <p style={{color: kolorek}}>{wynik}</p>
     </div>
   );
 }
